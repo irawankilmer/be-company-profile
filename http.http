@@ -1,0 +1,46 @@
+### POST request to example server
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+    "name": "Osup",
+    "username": "Osup",
+    "email": "osup@example.com",
+    "password": "password123"
+}
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "login": "osup@example.com",
+    "password": "password123"
+}
+
+### Insert Data
+POST http://localhost:8080/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1NDYzMjksInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.iDhJDhXmQ2cfRknj_23MViHuL-eqanH5-02xfb0Co_c
+Content-Type: application/json
+
+{
+  "title": "Berita Terbaru Hari Ini Juga",
+  "content": "Isi lengkap artikel"
+}
+
+### Tampilkan semua data post
+GET http://localhost:8080/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1NDYzMjksInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.iDhJDhXmQ2cfRknj_23MViHuL-eqanH5-02xfb0Co_c
+
+###
+PUT http://localhost:8080/api/dashboard/post/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ4MzYyMzcyLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJhZG1pbiIsImNyZWF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCIsInVwZGF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCJ9XSwidXNlcl9pZCI6MX0.wPjlN5xw_f6uYvACDVg2RsyriqPTBAcxDlX26mnWQ0Y
+Content-Type: application/json
+
+{
+  "title": "Jangjawokan",
+  "body": "Isi lengkap artikel"
+}
+
+###
+DELETE http://localhost:8080/api/dashboard/post/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ4MzYyMzcyLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJhZG1pbiIsImNyZWF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCIsInVwZGF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCJ9XSwidXNlcl9pZCI6MX0.wPjlN5xw_f6uYvACDVg2RsyriqPTBAcxDlX26mnWQ0Y
