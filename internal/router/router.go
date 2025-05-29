@@ -25,6 +25,9 @@ func SetupRoutes(r *gin.Engine, app *bootstrap.AppContainer) {
 	}
 
 	admin := r.Group("/api").Use(middleware.AuthMiddleware(), middleware.RoleMiddleware("admin"))
+	admin.GET("/post", postHandler.GetAllPosts)
 	admin.POST("/post", postHandler.CreatePost)
-
+	admin.GET("/post/:id", postHandler.GetPostByID)
+	admin.PUT("/post/:id", postHandler.UpdatePost)
+	admin.DELETE("/post/:id", postHandler.DeletePost)
 }
