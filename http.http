@@ -19,17 +19,17 @@ Content-Type: application/json
 
 ### Insert Data
 POST http://localhost:8080/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1NDYzMjksInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.iDhJDhXmQ2cfRknj_23MViHuL-eqanH5-02xfb0Co_c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1ODI5OTcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.o-dJ0898Rdh_NCLxLUaCpq3jk6qEhNi8nch0WY3R6Ug
 Content-Type: application/json
 
 {
-  "title": "Berita Terbaru Hari Ini Juga",
-  "content": "Isi lengkap artikel"
+  "title": "hihihihi",
+  "content": "kolkol"
 }
 
 ### Tampilkan semua data post
 GET http://localhost:8080/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1NDYzMjksInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.iDhJDhXmQ2cfRknj_23MViHuL-eqanH5-02xfb0Co_c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1ODI5OTcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.o-dJ0898Rdh_NCLxLUaCpq3jk6qEhNi8nch0WY3R6Ug
 
 ###
 PUT http://localhost:8080/api/dashboard/post/2

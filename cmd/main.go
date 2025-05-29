@@ -7,6 +7,17 @@ import (
 	"os"
 )
 
+// Swagger documentation
+// @title Be Blog - REST API Docs
+// @description Simply blog system
+// @version 1.0
+// @BasePath /
+// @schemes http
+// @schemes https
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 func main() {
 	config.LoadEnv()
 	config.ConnectDB()
