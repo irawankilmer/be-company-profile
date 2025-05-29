@@ -21,23 +21,6 @@ definitions:
     - login
     - password
     type: object
-  request.RegisterRequest:
-    properties:
-      email:
-        type: string
-      name:
-        type: string
-      password:
-        minLength: 6
-        type: string
-      username:
-        type: string
-    required:
-    - email
-    - name
-    - password
-    - username
-    type: object
   request.UpdatePostRequest:
     properties:
       content:
@@ -47,13 +30,6 @@ definitions:
     required:
     - content
     - title
-    type: object
-  response.LoginResponse:
-    properties:
-      token:
-        type: string
-      user:
-        $ref: '#/definitions/response.UserResponse'
     type: object
   response.MessageResponse:
     properties:
@@ -76,15 +52,6 @@ definitions:
       user_id:
         type: integer
     type: object
-  response.UserResponse:
-    properties:
-      email:
-        type: string
-      id:
-        type: integer
-      username:
-        type: string
-    type: object
 info:
   contact: {}
   description: Simply blog system
@@ -95,11 +62,10 @@ paths:
     post:
       consumes:
       - application/json
-      description: Login menggunakan email/username dan password
       parameters:
       - description: Login data
         in: body
-        name: request
+        name: data
         required: true
         schema:
           $ref: '#/definitions/request.LoginRequest'
@@ -109,14 +75,26 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/response.LoginResponse'
-        "401":
-          description: Unauthorized
+            $ref: '#/definitions/response.MessageResponse'
+        "400":
+          description: Bad Request
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            $ref: '#/definitions/response.MessageResponse'
       summary: Login user
+      tags:
+      - Auth
+  /api/logout:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Logout user
       tags:
       - Auth
   /api/post:
@@ -247,34 +225,6 @@ paths:
       summary: Update post
       tags:
       - Post
-  /api/register:
-    post:
-      consumes:
-      - application/json
-      description: Register with email, username, password
-      parameters:
-      - description: Register data
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/request.RegisterRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/response.UserResponse'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Register new user
-      tags:
-      - Auth
 schemes:
 - https
 securityDefinitions:

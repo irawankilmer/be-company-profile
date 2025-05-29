@@ -16,12 +16,14 @@ func SetupRoutes(r *gin.Engine, app *bootstrap.AppContainer) {
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	authHandler := handler.NewAuthHandler(app.AuthService)
 	postHandler := handler.NewPostHandler(app.PostService)
 
 	api := r.Group("/api")
 	{
-		api.POST("/register", handler.Register)
-		api.POST("/login", handler.Login)
+		//api.POST("/register", handler.Register)
+		api.POST("/login", authHandler.Login)
+		api.POST("/logout", authHandler.Logout)
 	}
 
 	admin := r.Group("/api").Use(middleware.AuthMiddleware(), middleware.RoleMiddleware("admin"))

@@ -1,93 +1,58 @@
 package handler
 
 import (
-	"company-profile/internal/domain"
 	"company-profile/internal/dto/request"
 	"company-profile/internal/dto/response"
-	"company-profile/internal/usecase"
-	"company-profile/pkg/utils"
+	"company-profile/internal/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-// Register godoc
-// @Summary Register new user
-// @Description Register with email, username, password
-// @Tags Auth
-// @Accept  json
-// @Produce  json
-// @Param   request body  request.RegisterRequest true "Register data"
-// @Success 201 {object} response.UserResponse
-// @Failure 400 {object} map[string]string
-// @Router /api/register [post]
-func Register(c *gin.Context) {
-	var req request.RegisterRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	user := &domain.User{
-		Name:     req.Name,
-		Username: req.Username,
-		Email:    req.Email,
-		Password: req.Password,
-	}
-
-	err := usecase.RegisterUser(user)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-	}
-
-	c.JSON(http.StatusCreated, response.MessageResponse{
-		Message: "Registrasi berhasil",
-	})
+type AuthHandler struct {
+	service service.AuthService
 }
 
-// Login godoc
+func NewAuthHandler(s service.AuthService) *AuthHandler {
+	return &AuthHandler{s}
+}
+
 // @Summary Login user
-// @Description Login menggunakan email/username dan password
 // @Tags Auth
 // @Accept json
 // @Produce json
-// @Param request body request.LoginRequest true "Login data"
-// @Success 200 {object} response.LoginResponse
-// @Failure 401 {object} map[string]string
+// @Param data body request.LoginRequest true "Login data"
+// @Success 200 {object} response.MessageResponse
+// @Failure 400 {object} response.MessageResponse
 // @Router /api/login [post]
-func Login(c *gin.Context) {
+func (h *AuthHandler) Login(c *gin.Context) {
 	var req request.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
+		c.JSON(http.StatusBadRequest, response.MessageResponse{
+			Message: "Data tidak valid",
 		})
 		return
 	}
-
-	user, err := usecase.LoginUser(req.Login, req.Password)
+	token, err := h.service.Login(req)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": err.Error(),
+		c.JSON(http.StatusUnauthorized, response.MessageResponse{
+			Message: err.Error(),
 		})
+		return
 	}
+	c.JSON(http.StatusOK, gin.H{"token": token})
+}
 
-	var roles []string
-	for _, role := range user.Roles {
-		roles = append(roles, role.Name)
-	}
+// @Summary Logout user
+// @Tags Auth
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} response.MessageResponse
+// @Router /api/logout [post]
+func (h *AuthHandler) Logout(c *gin.Context) {
+	token := c.GetHeader("Authorization")
 
-	token, err := utils.GenerateJWT(user.ID, roles)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-	}
-
+	h.service.Logout(token)
 	c.JSON(http.StatusOK, response.MessageResponse{
-		Message: "Login success",
-		Data:    token,
+		Message: "Berhasil logout",
 	})
 }
