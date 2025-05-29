@@ -1,5 +1,15 @@
 basePath: /
 definitions:
+  request.CreatePostRequest:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+    required:
+    - content
+    - title
+    type: object
   request.LoginRequest:
     properties:
       login:
@@ -35,6 +45,27 @@ definitions:
       user:
         $ref: '#/definitions/response.UserResponse'
     type: object
+  response.MessageResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+    type: object
+  response.PostResponse:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   response.UserResponse:
     properties:
       email:
@@ -50,7 +81,7 @@ info:
   title: Be Blog - REST API Docs
   version: "1.0"
 paths:
-  /login:
+  /api/login:
     post:
       consumes:
       - application/json
@@ -78,7 +109,34 @@ paths:
       summary: Login user
       tags:
       - Auth
-  /register:
+  /api/post:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Post data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.PostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Create new post
+      tags:
+      - Post
+  /api/register:
     post:
       consumes:
       - application/json

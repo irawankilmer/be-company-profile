@@ -1,9 +1,11 @@
 package main
 
 import (
+	"company-profile/internal/bootstrap"
 	"company-profile/internal/config"
-	"company-profile/internal/handler"
+	"company-profile/internal/router"
 	"company-profile/internal/seeder"
+	"github.com/gin-gonic/gin"
 	"os"
 )
 
@@ -26,12 +28,17 @@ func main() {
 		seeder.SeedRoles()
 	}
 
-	r := handler.SetupRouter()
-
 	port := os.Getenv("APP_PORT")
 	if port == "" {
 		port = "8080"
 	}
+
+	app := bootstrap.InitApp()
+
+	r := gin.Default()
+
+	// Setup router
+	router.SetupRoutes(r, app)
 
 	r.Run(":" + port)
 }

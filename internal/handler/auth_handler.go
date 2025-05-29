@@ -19,7 +19,7 @@ import (
 // @Param   request body  request.RegisterRequest true "Register data"
 // @Success 201 {object} response.UserResponse
 // @Failure 400 {object} map[string]string
-// @Router /register [post]
+// @Router /api/register [post]
 func Register(c *gin.Context) {
 	var req request.RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -57,7 +57,7 @@ func Register(c *gin.Context) {
 // @Param request body request.LoginRequest true "Login data"
 // @Success 200 {object} response.LoginResponse
 // @Failure 401 {object} map[string]string
-// @Router /login [post]
+// @Router /api/login [post]
 func Login(c *gin.Context) {
 	var req request.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

@@ -1,0 +1,30 @@
+package router
+
+import (
+	"company-profile/docs"
+	"company-profile/internal/bootstrap"
+	"company-profile/internal/handler"
+	"company-profile/internal/middleware"
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+)
+
+func SetupRoutes(r *gin.Engine, app *bootstrap.AppContainer) {
+	r.Use(middleware.CORSMiddleware())
+
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	postHandler := handler.NewPostHandler(app.PostService)
+
+	api := r.Group("/api")
+	{
+		api.POST("/register", handler.Register)
+		api.POST("/login", handler.Login)
+	}
+
+	admin := r.Group("/api").Use(middleware.AuthMiddleware(), middleware.RoleMiddleware("admin"))
+	admin.POST("/post", postHandler.CreatePost)
+
+}

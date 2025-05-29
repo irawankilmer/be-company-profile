@@ -1,5 +1,5 @@
 ### POST request to example server
-POST http://localhost:8080/register
+POST http://localhost:8080/api/register
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
     "password": "password123"
 }
 ###
-POST http://localhost:8080/login
+POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
@@ -18,8 +18,8 @@ Content-Type: application/json
 }
 
 ### Insert Data
-POST http://localhost:8080/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1ODI5OTcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.o-dJ0898Rdh_NCLxLUaCpq3jk6qEhNi8nch0WY3R6Ug
+POST http://localhost:8080/api/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg2MDEwODEsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjJ9.PBw2a7vaBt6Qr2KQ--E7bz96q5H0o2H0oMESrEvzMUo
 Content-Type: application/json
 
 {
