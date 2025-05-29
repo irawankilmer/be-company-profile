@@ -2,7 +2,7 @@ package main
 
 import (
 	"company-profile/internal/config"
-	"company-profile/internal/delivery/handler"
+	"company-profile/internal/handler"
 	"company-profile/internal/seeder"
 	"os"
 )
