@@ -33,5 +33,6 @@ func SetupRoutes(r *gin.Engine, app *bootstrap.AppContainer) {
 	admin.PUT("/post/:id", postHandler.UpdatePost)
 	admin.DELETE("/post/:id", postHandler.DeletePost)
 
+	admin.GET("/category", categoryHandler.GetAllCategories)
 	admin.POST("/category", categoryHandler.CreateCategory)
 }

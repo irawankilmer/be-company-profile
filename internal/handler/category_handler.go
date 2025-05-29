@@ -17,6 +17,29 @@ func NewCategoryHandler(s service.CategoryService) *CategoryHandler {
 	return &CategoryHandler{s}
 }
 
+// GetAllCategory godoc
+// @Summary Get all posts
+// @Tags Category
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {array} response.CategoryResponse
+// @Failure 401 {object} response.MessageResponse
+// @Router /api/category [get]
+func (h *CategoryHandler) GetAllCategories(c *gin.Context) {
+	categories, err := h.service.GetAll()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Gagal mengambil data kategori",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, response.MessageResponse{
+		Message: "success",
+		Data:    categories,
+	})
+}
+
 // CreateCategory godoc
 // @Security BearerAuth
 // @Summary Create new category

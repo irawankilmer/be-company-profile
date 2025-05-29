@@ -8,6 +8,7 @@ import (
 
 type CategoryService interface {
 	Create(req request.CreateCategoryRequest) (*domain.Category, error)
+	GetAll() ([]domain.Category, error)
 }
 
 type categoryService struct {
@@ -26,4 +27,8 @@ func (s *categoryService) Create(req request.CreateCategoryRequest) (*domain.Cat
 	}
 	err := s.repo.Create(&category)
 	return &category, err
+}
+
+func (s *categoryService) GetAll() ([]domain.Category, error) {
+	return s.repo.GetAll()
 }
