@@ -11,6 +11,8 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
+	r.Use(middleware.CORSMiddleware())
+
 	// dokumentasi swagger
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

@@ -9,6 +9,7 @@ type User struct {
 	Email     string `gorm:"uniqueIndex;size:100"`
 	Password  string `gorm:"size:255"`
 	Roles     []Role `gorm:"many2many:user_roles"`
+	Posts     []Post
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
