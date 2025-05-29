@@ -37,9 +37,12 @@ func ConnectDB() {
 	DB = db
 	fmt.Println("Database connected successfully")
 
-	db.AutoMigrate(
-		&domain.User{},
-		&domain.Role{},
-		&domain.Post{},
-	)
+	if os.Getenv("APP_ENV") == "local" {
+		db.AutoMigrate(
+			&domain.User{},
+			&domain.Role{},
+			&domain.Post{},
+			&domain.Category{},
+		)
+	}
 }

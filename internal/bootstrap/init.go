@@ -7,8 +7,9 @@ import (
 )
 
 type AppContainer struct {
-	AuthService service.AuthService
-	PostService service.PostService
+	AuthService     service.AuthService
+	PostService     service.PostService
+	CategoryService service.CategoryService
 }
 
 func InitApp() *AppContainer {
@@ -16,9 +17,11 @@ func InitApp() *AppContainer {
 
 	authRepo := repository.NewAuthRepository(db)
 	postRepo := repository.NewPostRepository(db)
+	categoryRepo := repository.NewCategoryRepository(db)
 
 	return &AppContainer{
-		AuthService: service.NewAuthService(authRepo),
-		PostService: service.NewPostService(postRepo),
+		AuthService:     service.NewAuthService(authRepo),
+		PostService:     service.NewPostService(postRepo),
+		CategoryService: service.NewCategoryService(categoryRepo),
 	}
 }

@@ -1,4 +1,4 @@
-### POST request to example server
+### Df
 POST http://localhost:8080/api/register
 Content-Type: application/json
 
@@ -8,7 +8,7 @@ Content-Type: application/json
     "email": "osup@example.com",
     "password": "password123"
 }
-###
+### Login
 POST http://localhost:8080/api/login
 Content-Type: application/json
 
@@ -17,9 +17,12 @@ Content-Type: application/json
     "password": "password123"
 }
 
+### Logout
+POST http://localhost:8080/api/logout
+
 ### Insert Data
 POST http://localhost:8080/api/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg2MDEwODEsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjJ9.PBw2a7vaBt6Qr2KQ--E7bz96q5H0o2H0oMESrEvzMUo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg2MTA4NzcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjJ9.9fToiB0hneQKtcRVeTOutmRn8CKl_t_-ZaKHBTvMAfY
 Content-Type: application/json
 
 {
@@ -28,12 +31,12 @@ Content-Type: application/json
 }
 
 ### Tampilkan semua data post
-GET http://localhost:8080/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg1ODI5OTcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjF9.o-dJ0898Rdh_NCLxLUaCpq3jk6qEhNi8nch0WY3R6Ug
+GET http://localhost:8080/api/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg2MTA4NzcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjJ9.9fToiB0hneQKtcRVeTOutmRn8CKl_t_-ZaKHBTvMAfY
 
 ###
 PUT http://localhost:8080/api/dashboard/post/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ4MzYyMzcyLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJhZG1pbiIsImNyZWF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCIsInVwZGF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCJ9XSwidXNlcl9pZCI6MX0.wPjlN5xw_f6uYvACDVg2RsyriqPTBAcxDlX26mnWQ0Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg2MTA4NzcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjJ9.9fToiB0hneQKtcRVeTOutmRn8CKl_t_-ZaKHBTvMAfY
 Content-Type: application/json
 
 {
@@ -43,4 +46,4 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/api/dashboard/post/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ4MzYyMzcyLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJhZG1pbiIsImNyZWF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCIsInVwZGF0ZWRfYXQiOiIyMDI1LTA1LTI2VDIxOjE1OjU5LjM3OSswNzowMCJ9XSwidXNlcl9pZCI6MX0.wPjlN5xw_f6uYvACDVg2RsyriqPTBAcxDlX26mnWQ0Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg2MTA4NzcsInJvbGVzIjpbImFkbWluIl0sInVzZXJfaWQiOjJ9.9fToiB0hneQKtcRVeTOutmRn8CKl_t_-ZaKHBTvMAfY

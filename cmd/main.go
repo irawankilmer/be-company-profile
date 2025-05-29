@@ -26,6 +26,7 @@ func main() {
 
 	if os.Getenv("APP_ENV") == "local" {
 		seeder.SeedRoles()
+		seeder.SeedAdminUser()
 	}
 
 	port := os.Getenv("APP_PORT")

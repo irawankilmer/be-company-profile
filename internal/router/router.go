@@ -18,10 +18,10 @@ func SetupRoutes(r *gin.Engine, app *bootstrap.AppContainer) {
 
 	authHandler := handler.NewAuthHandler(app.AuthService)
 	postHandler := handler.NewPostHandler(app.PostService)
+	categoryHandler := handler.NewCategoryHandler(app.CategoryService)
 
 	api := r.Group("/api")
 	{
-		//api.POST("/register", handler.Register)
 		api.POST("/login", authHandler.Login)
 		api.POST("/logout", authHandler.Logout)
 	}
@@ -32,4 +32,6 @@ func SetupRoutes(r *gin.Engine, app *bootstrap.AppContainer) {
 	admin.GET("/post/:id", postHandler.GetPostByID)
 	admin.PUT("/post/:id", postHandler.UpdatePost)
 	admin.DELETE("/post/:id", postHandler.DeletePost)
+
+	admin.POST("/category", categoryHandler.CreateCategory)
 }

@@ -1,5 +1,17 @@
 basePath: /
 definitions:
+  request.CreateCategoryRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      parent_category_id:
+        type: integer
+    required:
+    - description
+    - name
+    type: object
   request.CreatePostRequest:
     properties:
       content:
@@ -31,6 +43,21 @@ definitions:
     - content
     - title
     type: object
+  response.CategoryResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      parent_category_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
   response.MessageResponse:
     properties:
       data: {}
@@ -58,6 +85,33 @@ info:
   title: Be Blog - REST API Docs
   version: "1.0"
 paths:
+  /api/category:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.CategoryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Create new category
+      tags:
+      - Category
   /api/login:
     post:
       consumes:
