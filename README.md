@@ -9,7 +9,7 @@ swag init -g cmd/main.go
 
 ### Jalnkan Program
 ```go
-air
+go run cmd/main.go
 ```
 
 ### Buka Swagger UI
