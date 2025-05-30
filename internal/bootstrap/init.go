@@ -3,7 +3,9 @@ package bootstrap
 import (
 	"company-profile/internal/config"
 	"company-profile/internal/repository"
+	"company-profile/internal/seeder"
 	"company-profile/internal/service"
+	"os"
 )
 
 type AppContainer struct {
@@ -13,7 +15,14 @@ type AppContainer struct {
 }
 
 func InitApp() *AppContainer {
+	config.LoadEnv()
+	config.ConnectDB()
 	db := config.DB
+
+	if os.Getenv("APP_ENV") == "local" {
+		seeder.SeedRoles()
+		seeder.SeedAdminUser()
+	}
 
 	authRepo := repository.NewAuthRepository(db)
 	postRepo := repository.NewPostRepository(db)

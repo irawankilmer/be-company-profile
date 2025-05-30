@@ -2,9 +2,7 @@ package main
 
 import (
 	"company-profile/internal/bootstrap"
-	"company-profile/internal/config"
 	"company-profile/internal/router"
-	"company-profile/internal/seeder"
 	"github.com/gin-gonic/gin"
 	"os"
 )
@@ -21,14 +19,6 @@ import (
 // @in header
 // @name Authorization
 func main() {
-	config.LoadEnv()
-	config.ConnectDB()
-
-	if os.Getenv("APP_ENV") == "local" {
-		seeder.SeedRoles()
-		seeder.SeedAdminUser()
-	}
-
 	port := os.Getenv("APP_PORT")
 	if port == "" {
 		port = "8080"
