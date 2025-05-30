@@ -3,7 +3,7 @@ package handler
 import (
 	"company-profile/internal/dto/request"
 	"company-profile/internal/dto/response"
-	"company-profile/internal/service"
+	"company-profile/internal/usecase"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -11,10 +11,10 @@ import (
 )
 
 type PostHandler struct {
-	service service.PostService
+	service usecase.PostUsecase
 }
 
-func NewPostHandler(s service.PostService) *PostHandler {
+func NewPostHandler(s usecase.PostUsecase) *PostHandler {
 	return &PostHandler{s}
 }
 

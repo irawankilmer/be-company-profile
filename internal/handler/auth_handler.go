@@ -3,16 +3,16 @@ package handler
 import (
 	"company-profile/internal/dto/request"
 	"company-profile/internal/dto/response"
-	"company-profile/internal/service"
+	"company-profile/internal/usecase"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type AuthHandler struct {
-	service service.AuthService
+	service usecase.AuthUsecase
 }
 
-func NewAuthHandler(s service.AuthService) *AuthHandler {
+func NewAuthHandler(s usecase.AuthUsecase) *AuthHandler {
 	return &AuthHandler{s}
 }
 

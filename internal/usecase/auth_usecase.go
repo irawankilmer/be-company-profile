@@ -1,4 +1,4 @@
-package service
+package usecase
 
 import (
 	"company-profile/internal/dto/request"
@@ -7,20 +7,20 @@ import (
 	"errors"
 )
 
-type AuthService interface {
+type AuthUsecase interface {
 	Login(req request.LoginRequest) (string, error)
 	Logout(token string) error
 }
 
-type authService struct {
+type authUsecase struct {
 	repo repository.AuthRepository
 }
 
-func NewAuthService(repo repository.AuthRepository) AuthService {
-	return &authService{repo}
+func NewAuthUsecase(repo repository.AuthRepository) AuthUsecase {
+	return &authUsecase{repo}
 }
 
-func (s *authService) Login(req request.LoginRequest) (string, error) {
+func (s *authUsecase) Login(req request.LoginRequest) (string, error) {
 	user, err := s.repo.FindByEmailOrUsername(req.Login)
 	if err != nil || !utils.CheckPasswordHash(req.Password, user.Password) {
 		return "", errors.New("email/username atau password salah")
@@ -35,6 +35,6 @@ func (s *authService) Login(req request.LoginRequest) (string, error) {
 	return token, err
 }
 
-func (s *authService) Logout(token string) error {
+func (s *authUsecase) Logout(token string) error {
 	return nil
 }

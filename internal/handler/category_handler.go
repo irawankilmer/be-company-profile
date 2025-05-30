@@ -3,17 +3,17 @@ package handler
 import (
 	"company-profile/internal/dto/request"
 	"company-profile/internal/dto/response"
-	"company-profile/internal/service"
+	"company-profile/internal/usecase"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
 )
 
 type CategoryHandler struct {
-	service service.CategoryService
+	service usecase.CategoryUsecase
 }
 
-func NewCategoryHandler(s service.CategoryService) *CategoryHandler {
+func NewCategoryHandler(s usecase.CategoryUsecase) *CategoryHandler {
 	return &CategoryHandler{s}
 }
 

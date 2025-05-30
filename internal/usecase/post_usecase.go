@@ -1,4 +1,4 @@
-package service
+package usecase
 
 import (
 	"company-profile/internal/domain"
@@ -6,7 +6,7 @@ import (
 	"company-profile/internal/repository"
 )
 
-type PostService interface {
+type PostUsecase interface {
 	Create(req request.CreatePostRequest, userID uint) (*domain.Post, error)
 	GetAll() ([]domain.Post, error)
 	GetByID(id uint) (*domain.Post, error)
@@ -14,15 +14,15 @@ type PostService interface {
 	Delete(id uint) error
 }
 
-type postService struct {
+type postUsecase struct {
 	repo repository.PostRepository
 }
 
-func NewPostService(r repository.PostRepository) PostService {
-	return &postService{r}
+func NewPostUsecase(r repository.PostRepository) PostUsecase {
+	return &postUsecase{r}
 }
 
-func (s *postService) Create(req request.CreatePostRequest, userID uint) (*domain.Post, error) {
+func (s *postUsecase) Create(req request.CreatePostRequest, userID uint) (*domain.Post, error) {
 	post := domain.Post{
 		Title:   req.Title,
 		Content: req.Content,
@@ -32,15 +32,15 @@ func (s *postService) Create(req request.CreatePostRequest, userID uint) (*domai
 	return &post, err
 }
 
-func (s *postService) GetAll() ([]domain.Post, error) {
+func (s *postUsecase) GetAll() ([]domain.Post, error) {
 	return s.repo.GetAll()
 }
 
-func (s *postService) GetByID(id uint) (*domain.Post, error) {
+func (s *postUsecase) GetByID(id uint) (*domain.Post, error) {
 	return s.repo.GetByID(id)
 }
 
-func (s *postService) Update(id uint, req request.UpdatePostRequest) (*domain.Post, error) {
+func (s *postUsecase) Update(id uint, req request.UpdatePostRequest) (*domain.Post, error) {
 	post, err := s.repo.GetByID(id)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,7 @@ func (s *postService) Update(id uint, req request.UpdatePostRequest) (*domain.Po
 	return post, err
 }
 
-func (s *postService) Delete(id uint) error {
+func (s *postUsecase) Delete(id uint) error {
 	post, err := s.repo.GetByID(id)
 	if err != nil {
 		return err

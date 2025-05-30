@@ -1,4 +1,4 @@
-package service
+package usecase
 
 import (
 	"company-profile/internal/domain"
@@ -6,20 +6,20 @@ import (
 	"company-profile/internal/repository"
 )
 
-type CategoryService interface {
+type CategoryUsecase interface {
 	Create(req request.CreateCategoryRequest) (*domain.Category, error)
 	GetAll() ([]domain.Category, error)
 }
 
-type categoryService struct {
+type categoryUsecase struct {
 	repo repository.CategoryRepository
 }
 
-func NewCategoryService(r repository.CategoryRepository) CategoryService {
-	return &categoryService{r}
+func NewCategoryUsecase(r repository.CategoryRepository) CategoryUsecase {
+	return &categoryUsecase{r}
 }
 
-func (s *categoryService) Create(req request.CreateCategoryRequest) (*domain.Category, error) {
+func (s *categoryUsecase) Create(req request.CreateCategoryRequest) (*domain.Category, error) {
 	category := domain.Category{
 		Name:             req.Name,
 		Description:      req.Description,
@@ -29,6 +29,6 @@ func (s *categoryService) Create(req request.CreateCategoryRequest) (*domain.Cat
 	return &category, err
 }
 
-func (s *categoryService) GetAll() ([]domain.Category, error) {
+func (s *categoryUsecase) GetAll() ([]domain.Category, error) {
 	return s.repo.GetAll()
 }

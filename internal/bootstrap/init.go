@@ -4,14 +4,14 @@ import (
 	"company-profile/internal/config"
 	"company-profile/internal/repository"
 	"company-profile/internal/seeder"
-	"company-profile/internal/service"
+	"company-profile/internal/usecase"
 	"os"
 )
 
 type AppContainer struct {
-	AuthService     service.AuthService
-	PostService     service.PostService
-	CategoryService service.CategoryService
+	AuthService     usecase.AuthUsecase
+	PostService     usecase.PostUsecase
+	CategoryService usecase.CategoryUsecase
 }
 
 func InitApp() *AppContainer {
@@ -29,8 +29,8 @@ func InitApp() *AppContainer {
 	categoryRepo := repository.NewCategoryRepository(db)
 
 	return &AppContainer{
-		AuthService:     service.NewAuthService(authRepo),
-		PostService:     service.NewPostService(postRepo),
-		CategoryService: service.NewCategoryService(categoryRepo),
+		AuthService:     usecase.NewAuthUsecase(authRepo),
+		PostService:     usecase.NewPostUsecase(postRepo),
+		CategoryService: usecase.NewCategoryUsecase(categoryRepo),
 	}
 }
