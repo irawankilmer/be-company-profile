@@ -10,9 +10,9 @@ import (
 )
 
 type AppContainer struct {
-	AuthService     usecase.AuthUsecase
-	PostService     usecase.PostUsecase
-	CategoryService usecase.CategoryUsecase
+	AuthUsecase     usecase.AuthUsecase
+	PostUsecase     usecase.PostUsecase
+	CategoryUsecase usecase.CategoryUsecase
 }
 
 func InitApp() *AppContainer {
@@ -31,8 +31,8 @@ func InitApp() *AppContainer {
 	categoryRepo := repository.NewCategoryRepository(db)
 
 	return &AppContainer{
-		AuthService:     usecase.NewAuthUsecase(authRepo),
-		PostService:     usecase.NewPostUsecase(postRepo),
-		CategoryService: usecase.NewCategoryUsecase(categoryRepo),
+		AuthUsecase:     usecase.NewAuthUsecase(authRepo),
+		PostUsecase:     usecase.NewPostUsecase(postRepo),
+		CategoryUsecase: usecase.NewCategoryUsecase(categoryRepo),
 	}
 }
