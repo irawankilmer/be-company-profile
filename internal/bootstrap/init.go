@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"company-profile/internal/config"
+	"company-profile/internal/migration"
 	"company-profile/internal/repository"
 	"company-profile/internal/seeder"
 	"company-profile/internal/usecase"
@@ -20,6 +21,7 @@ func InitApp() *AppContainer {
 	db := config.DB
 
 	if os.Getenv("APP_ENV") == "local" {
+		migration.AutoMigrate()
 		seeder.SeedRoles()
 		seeder.SeedAdminUser()
 	}
