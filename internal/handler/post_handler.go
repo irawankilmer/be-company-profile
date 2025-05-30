@@ -91,7 +91,7 @@ func (h *PostHandler) GetPostByID(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	post, err := h.service.GetByID(uint(id))
 	if err != nil {
-		c.JSON(http.StatusSwitchingProtocols, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"error": "Data tidak ditemukan!",
 		})
 		return

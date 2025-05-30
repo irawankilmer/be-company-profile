@@ -33,6 +33,18 @@ definitions:
     - login
     - password
     type: object
+  request.UpdateCategoryRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      parent_category_id:
+        type: integer
+    required:
+    - description
+    - name
+    type: object
   request.UpdatePostRequest:
     properties:
       content:
@@ -102,7 +114,7 @@ paths:
             $ref: '#/definitions/response.MessageResponse'
       security:
       - BearerAuth: []
-      summary: Get all posts
+      summary: Get all categories
       tags:
       - Category
     post:
@@ -129,6 +141,88 @@ paths:
       security:
       - BearerAuth: []
       summary: Create new category
+      tags:
+      - Category
+  /api/category/{id}:
+    delete:
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete category
+      tags:
+      - Category
+    get:
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.CategoryResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Get category by ID
+      tags:
+      - Category
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Category data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.CategoryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Update category
       tags:
       - Category
   /api/login:

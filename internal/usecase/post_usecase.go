@@ -37,6 +37,7 @@ func (s *postUsecase) GetAll() ([]domain.Post, error) {
 }
 
 func (s *postUsecase) GetByID(id uint) (*domain.Post, error) {
+
 	return s.repo.GetByID(id)
 }
 

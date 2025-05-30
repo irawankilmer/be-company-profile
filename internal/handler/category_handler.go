@@ -6,6 +6,7 @@ import (
 	"company-profile/internal/usecase"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -17,8 +18,8 @@ func NewCategoryHandler(s usecase.CategoryUsecase) *CategoryHandler {
 	return &CategoryHandler{s}
 }
 
-// GetAllCategory godoc
-// @Summary Get all posts
+// GetAllCategories godoc
+// @Summary Get all categories
 // @Tags Category
 // @Security BearerAuth
 // @Produce json
@@ -74,5 +75,90 @@ func (h *CategoryHandler) CreateCategory(c *gin.Context) {
 		ParentCategoryID: category.ParentCategoryID,
 		CreatedAt:        category.CreatedAt.Format(time.RFC3339),
 		UpdatedAt:        category.UpdatedAt.Format(time.RFC3339),
+	})
+}
+
+// GetCategoryByID godoc
+// @Summary Get category by ID
+// @Tags Category
+// @Security BearerAuth
+// @Produce json
+// @Param id path int true "Category ID"
+// @Success 200 {object} response.CategoryResponse
+// @Failure 404 {object} response.MessageResponse
+// @Router /api/category/{id} [get]
+func (h *CategoryHandler) GetCategoryByID(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	category, err := h.service.GetByID(uint(id))
+	if err != nil {
+		c.JSON(http.StatusNotFound, response.MessageResponse{
+			Message: "Data tidak ditemukan!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, response.MessageResponse{
+		Message: "success",
+		Data:    category,
+	})
+}
+
+// UpdateCategory godoc
+// @Summary Update category
+// @Tags Category
+// @Security BearerAuth
+// @Accept json
+// @Produce json
+// @Param id path int true "Category ID"
+// @Param data body request.UpdateCategoryRequest true "Category data"
+// @Success 200 {object} response.CategoryResponse
+// @Failure 400 {object} response.MessageResponse
+// @Failure 404 {object} response.MessageResponse
+// @Router /api/category/{id} [put]
+func (h *CategoryHandler) UpdateCategory(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	var req request.UpdateCategoryRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, response.MessageResponse{
+			Message: "Data tidak valid!",
+		})
+		return
+	}
+
+	category, err := h.service.Update(uint(id), req)
+	if err != nil {
+		c.JSON(http.StatusNotFound, response.MessageResponse{
+			Message: "Data tidak ditemukan!",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, response.MessageResponse{
+		Message: "success",
+		Data:    category,
+	})
+}
+
+// DeleteCategory godoc
+// @Summary Delete category
+// @Tags Category
+// @Security BearerAuth
+// @Produce json
+// @Param id path int true "Category ID"
+// @Success 200 {object} response.MessageResponse
+// @Failure 404 {object} response.MessageResponse
+// @Router /api/category/{id} [delete]
+func (h *CategoryHandler) DeleteCategory(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	err := h.service.Delete(uint(id))
+	if err != nil {
+		c.JSON(http.StatusNotFound, response.MessageResponse{
+			Message: "Data tidak di temukan!",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, response.MessageResponse{
+		Message: "Data berhasil di hapus!",
 	})
 }
